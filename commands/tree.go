@@ -4,6 +4,12 @@ import (
 	"fmt"
 	"path"
 	"sort"
+	"strings"
+)
+
+var (
+	directoriesCnt = 0
+	filesCnt = 0
 )
 
 func main() {
@@ -35,6 +41,8 @@ func showAllFiles(filenames []string) {
 		} else {
 			showRegularFile(file, indent, false)
 		}
+
+		fmt.Printf("\n%d directories, %d files\n", directoriesCnt, filesCnt)
 	}
 }
 
@@ -43,7 +51,7 @@ func showDirFile(file *os.File, indent string, isLastDir bool) {
 	if err != nil {
 		return
 	}
-	sort.Strings(dirnames)
+	dirnames = sortDir(dirnames)
 	var isLastFile bool
 	for i, dirname := range dirnames {
 		if i + 1 == len(dirnames) {
@@ -64,6 +72,7 @@ func showDirFile(file *os.File, indent string, isLastDir bool) {
 			continue
 		}
 		if fi.IsDir() {
+			directoriesCnt++
 			_, lastPart := path.Split(file.Name())
 			if isLastDir {
 				fmt.Print(indent + "└── ", lastPart, "\n")
@@ -71,11 +80,12 @@ func showDirFile(file *os.File, indent string, isLastDir bool) {
 				fmt.Print(indent + "├── ", lastPart, "\n")
 			}
 			if isLastDir {
-				showDirFile(file, "    " + indent, isLastDir)
+				showDirFile(file, indent + "    ", isLastDir)
 			} else {
 				showDirFile(file, indent + "│   ", isLastDir)
 			}
 		} else {
+			filesCnt++
 			showRegularFile(file, indent, isLastFile)
 		}
 	}
@@ -89,4 +99,40 @@ func showRegularFile(file *os.File, indent string, isLastFile bool) {
 	} else {
 		fmt.Print(indent + "├── ", lastPart, "\n")
 	}
+}
+
+type pair struct {
+	origi string
+	toLower string
+}
+type pairs []*pair
+
+func (a pairs) Len() int {
+	return len(a)
+}
+
+func (a pairs) Swap(i, j int) {
+	a[i], a[j] = a[j], a[i]
+}
+func (a pairs) Less(i, j int) bool {
+	if strings.Compare(a[i].toLower, a[j].toLower) < 0 {
+		return true
+	} else {
+		return false
+	}
+}
+
+func sortDir(dirnames []string) []string {
+	length := len(dirnames)
+	ps := make(pairs, 0, length)
+	for _, dirname := range dirnames {
+		ps = append(ps, &pair{dirname, strings.ToLower(strings.TrimLeft(dirname, "."))})
+	}
+	sort.Sort(ps)
+
+	var result []string
+	for _, p := range ps {
+		result = append(result, p.origi)
+	}
+	return result
 }
