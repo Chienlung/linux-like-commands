@@ -62,12 +62,12 @@ func getAllFiles(filenames []string) {
 }
 
 func formatSize(size int64) string {
-	if size / G > 0 {
+	if size / G > 0 {fmt.Println(size)
 		return fmt.Sprintf("%5.1fG", float64(size) / G)
 	} else if size / M > 0 {
-		return fmt.Sprintf("%5.1fG", float64(size) * 1.0 / M)
+		return fmt.Sprintf("%5.1fM", float64(size) * 1.0 / M)
 	} else if size / K > 0 {
-		return fmt.Sprintf("%5.1fG", float64(size) * 1.0 / K)
+		return fmt.Sprintf("%5.1fK", float64(size) * 1.0 / K)
 	} else {
 		return fmt.Sprintf("%6d", size)
 	}
