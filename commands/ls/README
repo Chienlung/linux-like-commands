@@ -1,0 +1,4 @@
+ls c:\
+ls .
+ls ..
+ls ./education.txt

@@ -1,0 +1,5 @@
+curl -i -X POST -d {\"duid\":\"\",\"osv\":\"4.1.1\",\"mkt_cat\":\"\",\"operator\":\"中国移动\",\"mkt_tag\":\"\",\"adw\":\"960\",\"ssid\":\"GNOME\",\"appname\":\"见缝插针(adnroid)\",\"geo\":\"\",\"ts\":\"1415769204\",\"version\":\"v1.0_IFLY\",\"mkt\":\"\",\"net\":\"2\",\"adh\":\"640\",\"lan\":\"zh-CN\",\"vendor\":\"LENOVO\",\"adunitid\":\"1AFF80E846785A3A9D7EB695A90B0603\",\"mac\":\"d4:22:3f:82:f0:0d\",\"idfa\":\"\",\"imei\":\"861166023235986\",\"openudid\":\"\",\"dvw\":\"540\",\"pkgname\":\"com.iflytek.voiceadsdemo\",\"dvh\":\"960\",\"os\":\"Android\",\"density\":\"240\",\"aaid\":\"\",\"mkt_sn\":\"\",\"isboot\":\"0\",\"adid\":\"177baab0635eabae\",\"model\":\"LenovoP770\",\"ua\":\"Mozilla/5.0(Linux;U;Android4.1.1;zh-cn;LenovoP770Build/JRO03C)AppleWebKit/534.30(KHTML,likeGecko)Version/4.0MobileSafari/534.30\",\"appid\":\"5526102e\",\"ip\":\"60.247.65.163\",\"batch_cnt\":\"2\"} -H "X-protocol-ver:2.0" -H "Accept:application/json" http://localhost:8080/gnome-adx-1.0.0-SNAPSHOT/ad/request
+
+curl -i -X POST -d @sdk2.json -H "X-protocol-ver:2.0" -H "Accept:application/json" http://localhost:8080/gnome-adx-1.0.0-SNAPSHOT/ad/request
+
+curl -i -X GET http://www.google.com
